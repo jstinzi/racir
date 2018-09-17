@@ -1,0 +1,103 @@
+---
+title: "racir - Rapid A/Ci response analysis"
+author: "Joseph R. Stinziano"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{racir - Rapid A/Ci response analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette explains how to process rapid A/Ci response (RACiR) data with the
+'racir' package in R. It is written to be usable for beginners in R. Please
+note that the functions in the package in its current form will only work with
+Li-Cor 6800 (LI6800) data files (not the spreadsheet .xlsx output). Notes will
+explain how to modify the function code for use with other types of data files.
+
+After installing the package from CRAN with 'install.packages("racir")', load
+the package :
+
+```{r}
+library(racir)
+```
+
+##Reading in Data
+In the examples below I will use three built-in data files in the 'racir'
+package: 'cal', 'poplar_1', and 'poplar_2'. These are LI6800 data files in
+a tab-delimited format. These files can be called in using the code:
+
+system.file("extdata", "FILENAME", package = "racir")
+
+where FILENAME is one of the named files above.
+
+The following example is to read in a data file from the LI6800. Note that
+this is not restricted to RACiR data, but can be used for reading LI6800 files
+in general.
+
+```{r}
+data <- read_6800(system.file("extdata", "cal", package = "racir"))
+```
+
+##Checking Calibration Data
+Since RACiR precludes matching the sample and reference gas analyzers, an empty
+chamber RACiR needs to be run and used to correct the leaf sample data. First
+however, it is necessary to ensure that only usable calibration data are
+retained. The following code outputs three graphs: 'Check cutoffs' helps you to
+visually determine where the unusable shoulder portions are of the RACiR.
+'Confirm cutoffs' helps you to verify that your cutoff arguments are
+appropriate. 'Calibration Fits' shows you how each polynomial fits the data.
+
+```{r fig.height = 4, fig.width = 6}
+racircalcheck(calfile = system.file("extdata", "cal", package = "racir"))
+```
+
+In the above example, there are shoulders in the A versus CO2_r response.
+These shoulders represent less predictable chamber mixing at the beginning
+and end of RACiRs. We can cut them out using the 'mincut' and 'maxcut'
+arguments.
+
+```{r fig.height = 4, fig.width = 6}
+racircalcheck(calfile = system.file("extdata", "cal", package = "racir"),
+              mincut = 350, maxcut = 780)
+```
+
+From the 'Check cutoffs' and 'Calibration Fits' graphs, we can see that the
+cutoffs for CO2_r of 350 and 780 narrow the calibration file to a predictable
+response.
+
+##Correcting RACiR Files
+The following code can be used to correct a single RACiR data file based on a
+paired calibration file. This code should be used after running 'racircalcheck'
+to determine appropriate cutoffs. The 'racircal' function is most appropriate
+when you have one calibration file per leaf RACiR.
+
+```{r fig.height = 4, fig.width = 6}
+racircal(calfile = system.file("extdata", "cal", package = "racir"),
+         mincut = 350, maxcut = 780,
+         datafile = system.file("extdata", "poplar_2", package = "racir"))
+```
+
+If there is more than one leaf RACiR per calibration file, then a batch
+analysis can be performed using the 'racircalbatch' function.
+
+```{r fig.height = 4, fig.width = 6}
+#Create a list of files
+myfiles <- c(system.file("extdata", "poplar_1", package = "racir"),
+             system.file("extdata", "poplar_2", package = "racir"))
+
+#If all files in a folder pertain to one calibration file, you can use:
+#myfiles = list.files()
+
+racircalbatch(calfile = system.file("extdata", "cal", package = "racir"),
+         mincut = 350, maxcut = 780,
+         datafiles = myfiles)
+```
+
+##Compiling RACiR Files
+Once the RACiR files have been processed, the files can be compiled into a .csv
+file using the following code:
+
+```{r eval = FALSE}
+compile_racir(outputfile = "mydata.csv")
+```
