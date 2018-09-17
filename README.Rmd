@@ -1,3 +1,11 @@
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
 # The racir R package
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
