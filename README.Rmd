@@ -2,7 +2,9 @@
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
 (RACiR TM) data obtained using the LI-COR 6800 portable photosynthesis machine
-(LI-COR Biosciences, Lincoln, NB).
+(LI-COR Biosciences, Lincoln, NB). 
+
+RACiR is a trademark of LI-COR Biosciences, and used with permission.
 
 Please report bugs or suggest features to Dr. Joseph Ronald Stinziano at
 josephstinziano@gmail.com.
