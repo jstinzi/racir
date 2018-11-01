@@ -4,7 +4,7 @@
 \alias{racircal}
 \title{Corrects rapid A/Ci response (RACiR) data from leaves using empty chamber data.}
 \usage{
-racircal(calfile, mincut, maxcut, datafile)
+racircal(calfile, mincut, maxcut, datafile, skiplines)
 }
 \arguments{
 \item{calfile}{Calibration (empty chamber) rapid A/Ci response file}

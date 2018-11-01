@@ -18,9 +18,9 @@
 #'
 #'
 #'
-racircalcheck <- function(calfile, mincut, maxcut){
+racircalcheck <- function(calfile, mincut, maxcut, skiplines){
   # Load calibration data -----------------------------------
-  cal <- read_6800(calfile)
+  cal <- read_6800(calfile, skiplines)
 
   # Check data for cutoffs ----------------------------------
   plot(A~CO2_r, data = cal, main = "Check cutoffs")

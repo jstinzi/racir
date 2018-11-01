@@ -4,7 +4,7 @@
 \alias{read_6800}
 \title{Reads files from the Li-Cor 6800}
 \usage{
-read_6800(filename)
+read_6800(filename, skiplines)
 }
 \arguments{
 \item{filename}{A character string of the form: "mydata".}

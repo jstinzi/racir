@@ -16,9 +16,9 @@
 #' @importFrom graphics plot
 #' @export
 #'
-racircal <- function(calfile, mincut, maxcut, datafile){
+racircal <- function(calfile, mincut, maxcut, datafile, skiplines){
   # Load calibration data -----------------------------------
-  cal <- read_6800(calfile)
+  cal <- read_6800(calfile, skiplines)
 
   # Assign cutoffs ------------------------------------------
   mincut <- ifelse(missing(mincut) == TRUE, min(cal$CO2_r), mincut)
@@ -43,7 +43,7 @@ racircal <- function(calfile, mincut, maxcut, datafile){
   mincal <- min(cal$CO2_r)
 
   # Read leaf data file -------------------------------------
-  id <- read_6800(datafile)
+  id <- read_6800(datafile, skiplines)
 
   # Restrict data to calibration range ----------------------
   id <- id[id$CO2_r > mincal, ]

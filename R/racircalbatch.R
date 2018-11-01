@@ -18,7 +18,7 @@
 #' @export
 #'
 #'
-racircalbatch <- function(calfile, mincut, maxcut, datafiles){
+racircalbatch <- function(calfile, mincut, maxcut, datafiles, skiplines){
   for (i in 1:length(datafiles)){
-    racircal(calfile, mincut, maxcut, datafiles[i])
+    racircal(calfile, mincut, maxcut, datafiles[i], skiplines)
   }}

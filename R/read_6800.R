@@ -10,13 +10,14 @@
 #'
 #'
 #'
-read_6800 <- function(filename){
+read_6800 <- function(filename, skiplines){
+  skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
   # Read in file for column names ---------------------------
-  colname <- read.delim(filename, sep = "\t", skip = 53,
+  colname <- read.delim(filename, sep = "\t", skip = skiplines,
                         header = TRUE, fill = TRUE)
 
   # Read in file --------------------------------------------
-  data <- read.delim(filename, sep = "\t", skip = 55,
+  data <- read.delim(filename, sep = "\t", skip = skiplines+2,
                      header = FALSE, fill = TRUE)
 
   # Assign column names -------------------------------------

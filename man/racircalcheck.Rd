@@ -4,7 +4,7 @@
 \alias{racircalcheck}
 \title{Allows visual checking of rapid A/Ci response (RACiR) calibration data using empty chamber data.}
 \usage{
-racircalcheck(calfile, mincut, maxcut)
+racircalcheck(calfile, mincut, maxcut, skiplines)
 }
 \arguments{
 \item{calfile}{Calibration (empty chamber) rapid A/Ci response file}

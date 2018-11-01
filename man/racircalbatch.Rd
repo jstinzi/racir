@@ -4,7 +4,7 @@
 \alias{racircalbatch}
 \title{Corrects a batch of rapid A/Ci response (RACiR) data}
 \usage{
-racircalbatch(calfile, mincut, maxcut, datafiles)
+racircalbatch(calfile, mincut, maxcut, datafiles, skiplines)
 }
 \arguments{
 \item{calfile}{Calibration (empty chamber) rapid A/Ci response file}
