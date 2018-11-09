@@ -5,6 +5,7 @@
 #' @param calfile Calibration (empty chamber) rapid A/Ci response file
 #' @param mincut Minimum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the initial chamber mixing. Default value is set to the minimum COR_r value.
 #' @param maxcut Maximum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the end of the response. Not needed in all cases. Default value is set to the maximum COR_r value.
+#' @param skiplines A number specifying the number of header lines to skip.
 #'
 #' @return racircal returns a data frame with corrected RACiR data
 #' @importFrom utils read.delim

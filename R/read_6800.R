@@ -3,6 +3,7 @@
 #' \code{read_6800} Reads Li-Cor 6800 files, which are delimited by spaces and tabs.
 #'
 #' @param filename A character string of the form: "mydata".
+#' @param skiplines A number specifying the number of header lines to skip.
 #'
 #' @return read_6800 imports a Li-Cor 6800 file as a data frame
 #' @importFrom utils read.delim

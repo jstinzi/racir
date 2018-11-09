@@ -8,6 +8,8 @@ read_6800(filename, skiplines)
 }
 \arguments{
 \item{filename}{A character string of the form: "mydata".}
+
+\item{skiplines}{A number specifying the number of header lines to skip.}
 }
 \value{
 read_6800 imports a Li-Cor 6800 file as a data frame

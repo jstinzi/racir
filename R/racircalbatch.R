@@ -4,7 +4,7 @@
 #'
 #' @inheritParams racircalcheck
 #' @param datafiles Vector of data files to be corrected
-#'
+#' @param skiplines A number specifying the number of header lines to skip.
 #'
 #' @return racircalbatch prints .csv files with corrected RACiR data
 #' @importFrom utils write.csv

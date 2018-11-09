@@ -14,6 +14,8 @@ racircal(calfile, mincut, maxcut, datafile, skiplines)
 \item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the end of the response. Not needed in all cases. Default value is set to the maximum COR_r value.}
 
 \item{datafile}{Name of the data file to be corrected}
+
+\item{skiplines}{A number specifying the number of header lines to skip.}
 }
 \value{
 racircal returns a data frame with corrected RACiR data

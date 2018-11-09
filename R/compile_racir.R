@@ -7,6 +7,7 @@
 #' @return Compiles .csv files for further analysis
 #' @importFrom utils write.csv
 #' @importFrom utils read.csv
+#' @importFrom dplyr bind_rows
 #' @export
 #'
 compile_racir <- function(outputfile){
@@ -16,14 +17,8 @@ compile_racir <- function(outputfile){
   # Read .csv files in folder -------------------------------
   racirframes <- lapply(files_list, read.csv)
 
-  # Force column names to be equal. Note the delta P --------
-  # name is inconsistently converted by R -------------------
-  for (i in 1:length(racirframes)){
-   colnames(racirframes[[i]]) <- colnames(racirframes[[1]])
-  }
-
   # Compile .csv files in folder ----------------------------
-  racir_compiled <- do.call(what = rbind, args = racirframes)
+  racir_compiled <- do.call(what = bind_rows, args = racirframes)
 
   # Write compiled data -------------------------------------
   write.csv(racir_compiled, paste(outputfile))
