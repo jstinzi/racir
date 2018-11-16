@@ -17,9 +17,15 @@
 #' @importFrom graphics plot
 #' @export
 #'
-racircal <- function(calfile, mincut, maxcut, datafile, skiplines){
+racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
   # Load calibration data -----------------------------------
-  cal <- read_6800(calfile, skiplines)
+  filetype <- ifelse(missing(filetype) == TRUE, 6800, filetype)
+  skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
+  # Load data -------------------------------------------------
+  ifelse(filetype == 6800, cal <- read_6800(calfile, skiplines),
+         ifelse(filetype == 'csv', cal <- read.csv(calfile),
+                ifelse(filetype == 'dataframe', cal <- calfile,
+                       "Error: filetype not recognized")))
 
   # Assign cutoffs ------------------------------------------
   mincut <- ifelse(missing(mincut) == TRUE, min(cal$CO2_r), mincut)
@@ -44,7 +50,10 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines){
   mincal <- min(cal$CO2_r)
 
   # Read leaf data file -------------------------------------
-  id <- read_6800(datafile, skiplines)
+  ifelse(filetype == 6800, id <- read_6800(datafile, skiplines),
+         ifelse(filetype == 'csv', id <- read.csv(datafile),
+                ifelse(filetype == 'dataframe', id <- datafile,
+                       "Error: filetype not recognized")))
 
   # Restrict data to calibration range ----------------------
   id <- id[id$CO2_r > mincal, ]

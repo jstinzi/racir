@@ -5,6 +5,7 @@
 #' @inheritParams racircalcheck
 #' @param datafiles Vector of data files to be corrected
 #' @param skiplines A number specifying the number of header lines to skip.
+#' @param digits pecifies rounding for groups. Defaults to -2 (100s).
 #'
 #' @return racircalbatch prints .csv files with corrected RACiR data
 #' @importFrom utils write.csv
@@ -18,7 +19,7 @@
 #' @export
 #'
 #'
-racircalbatch <- function(calfile, mincut, maxcut, datafiles, skiplines, filetype){
+racircalbatch_advanced <- function(calfile, mincut, maxcut, datafiles, skiplines, filetype, digits){
   for (i in 1:length(datafiles)){
-    racircal(calfile, mincut, maxcut, datafiles[i], skiplines, filetype)
+    racircal_advanced(calfile, mincut, maxcut, datafiles[i], skiplines, filetype, digits)
   }}
