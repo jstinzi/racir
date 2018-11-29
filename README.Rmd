@@ -1,11 +1,3 @@
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
-
 # The racir R package
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
@@ -36,10 +28,8 @@ modification is needed. Please contact Dr. Joseph R. Stinziano for help.
 To install the development version, use the following commands. Windows users
 must have Rtools installed.
 
-```{r eval = FALSE}
 library(devtools)
 install_github("jstinzi/racir")
-```
 
 ##License
 
