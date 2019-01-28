@@ -69,7 +69,7 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
                   (id$gtc + id$E / 2))
 
   # Plot corrected leaf data --------------------------------
-  plot(Acor ~ Cicor, data = id)
+  plot(Acor ~ Cicor, data = id, main = datafile)
 
   # Add ID label to file ------------------------------------
   id$ID <- rep(datafile, length(id$obs))
