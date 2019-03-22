@@ -35,10 +35,8 @@ racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
          ifelse(filetype == 'csv', dataframe <- read.csv(datafile),
                 ifelse(filetype == 'dataframe', dataframe <- datafile,
                        "Error: filetype not recognized")))
-  ifelse(filetype == 6800, dataname <- datafile,
-         ifelse(filetype == 'csv', dataname <- datafile,
-                ifelse(filetype == 'dataframe', dataname <- fileID,
-                       "Error: filetype not recognized")))
+  ifelse(filetype == 'dataframe', dataname <- fileID,
+         dataname <- datafile)
   #Add separation column --------------------------------------
   cal$sep_columns <- round(cal$CO2_r, digits = digits)
   dataframe$sep_columns <- round(dataframe$CO2_r, digits = digits)
