@@ -6,7 +6,6 @@
 #' @param datafile Name of the data file to be corrected.
 #' @param skiplines A number specifying the number of header lines to skip.
 #' @param filetype Specifies input datatype. Defaults to 6800.
-#' @param fileID Specifies output file name when using dataframes
 #' @param digits Specifies rounding for groups. Defaults to -2 (100s).
 #'
 #' @return racircal_advanced returns a data frame with corrected RACiR data
@@ -21,7 +20,7 @@
 #' @export
 #'
 racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
-                              fileID, filetype, digits){
+                              filetype, digits){
   #Defaults ---------------------------------------------------
   filetype <- ifelse(missing(filetype) == TRUE, 6800, filetype)
   skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
@@ -35,7 +34,6 @@ racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
          ifelse(filetype == 'csv', dataframe <- read.csv(datafile),
                 ifelse(filetype == 'dataframe', dataframe <- datafile,
                        "Error: filetype not recognized")))
-  dataname <- fileID
   #Add separation column --------------------------------------
   cal$sep_columns <- round(cal$CO2_r, digits = digits)
   dataframe$sep_columns <- round(dataframe$CO2_r, digits = digits)
@@ -86,9 +84,9 @@ racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
   # Plot A vs Cs as well
   plot(Acor ~ CO2_s, data = id, main = datafile)
   # Add ID label to file ------------------------------------
-  id$ID <- rep(dataname, length(id$obs))
+  id$ID <- rep(datafile, length(id$obs))
   # Remove columns filled with NA ---------------------------
   id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
   # Write data output to .csv -------------------------------
-  write.csv(id1, paste(dataname, ".csv", sep = ""))
+  write.csv(id1, paste(datafile, ".csv", sep = ""))
 }
