@@ -81,6 +81,8 @@ racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
   id <- do.call("rbind", range.split_data)
   # Plot corrected leaf data --------------------------------
   plot(Acor ~ Cicor, data = id, main = datafile)
+  # Plot A vs Cs as well
+  plot(Acor ~ CO2_s, data = is, main = datafile)
   # Add ID label to file ------------------------------------
   id$ID <- rep(datafile, length(id$obs))
   # Remove columns filled with NA ---------------------------
