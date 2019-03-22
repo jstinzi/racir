@@ -93,5 +93,5 @@ racircal_advanced <- function(calfile, mincut, maxcut, datafile, skiplines,
   # Remove columns filled with NA ---------------------------
   id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
   # Write data output to .csv -------------------------------
-  write.csv(id1, paste(datafile, ".csv", sep = ""))
+  write.csv(id1, paste(dataname, ".csv", sep = ""))
 }
