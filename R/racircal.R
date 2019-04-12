@@ -5,6 +5,7 @@
 #' @inheritParams racircalcheck
 #' @param datafile Name of the data file to be corrected
 #' @param skiplines A number specifying the number of header lines to skip.
+#' @param dataname Name of output file when using data frames
 #'
 #' @return racircal returns a data frame with corrected RACiR data
 #' @importFrom utils write.csv
@@ -17,7 +18,8 @@
 #' @importFrom graphics plot
 #' @export
 #'
-racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
+racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
+                     dataname){
   # Load calibration data -----------------------------------
   filetype <- ifelse(missing(filetype) == TRUE, 6800, filetype)
   skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
@@ -69,14 +71,20 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
                   (id$gtc + id$E / 2))
 
   # Plot corrected leaf data --------------------------------
-  plot(Acor ~ Cicor, data = id, main = datafile)
+  ifelse(filetype == "dataframe",
+         plot(Acor ~ Cicor, data = id, main = dataname),
+         plot(Acor ~ Cicor, data = id, main = datafile))
 
   # Add ID label to file ------------------------------------
-  id$ID <- rep(datafile, length(id$obs))
+  ifelse(filetype == "dataframe",
+         id$ID <- rep(dataname, length(id$obs)),
+         id$ID <- rep(datafile, length(id$obs)))
 
   # Remove columns filled with NA ---------------------------
   id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
 
   # Write data output to .csv -------------------------------
-  write.csv(id1, paste(datafile, ".csv", sep = ""))
+  ifelse(filetype == "dataframe",
+         write.csv(id1, paste(dataname, ".csv", sep = "")),
+         write.csv(id1, paste(datafile, ".csv", sep = "")))
 }
