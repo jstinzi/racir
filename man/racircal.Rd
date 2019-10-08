@@ -4,7 +4,7 @@
 \alias{racircal}
 \title{Corrects rapid A/Ci response (RACiR) data from leaves using empty chamber data.}
 \usage{
-racircal(calfile, mincut, maxcut, datafile, skiplines, filetype)
+racircal(calfile, mincut, maxcut, datafile, skiplines, filetype, dataname)
 }
 \arguments{
 \item{calfile}{Calibration (empty chamber) rapid A/Ci response file}
@@ -18,6 +18,8 @@ racircal(calfile, mincut, maxcut, datafile, skiplines, filetype)
 \item{skiplines}{A number specifying the number of header lines to skip.}
 
 \item{filetype}{Specifies the filetype for the data (6800, csv, or dataframe).}
+
+\item{dataname}{Name of output file when using data frames}
 }
 \value{
 racircal returns a data frame with corrected RACiR data

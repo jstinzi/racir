@@ -27,8 +27,7 @@ racircalcheck <- function(calfile, mincut, maxcut, skiplines, filetype){
   # Load data -------------------------------------------------
   ifelse(filetype == 6800, cal <- read_6800(calfile, skiplines),
          ifelse(filetype == 'csv', cal <- read.csv(calfile),
-                ifelse(filetype == 'dataframe', cal <- calfile,
-                       "Error: filetype not recognized")))
+                       "Error: filetype not recognized"))
 
   # Check data for cutoffs ----------------------------------
   plot(A~CO2_r, data = cal, main = "Check cutoffs")

@@ -26,8 +26,7 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
   # Load data -------------------------------------------------
   ifelse(filetype == 6800, cal <- read_6800(calfile, skiplines),
          ifelse(filetype == 'csv', cal <- read.csv(calfile),
-                ifelse(filetype == 'dataframe', cal <- calfile,
-                       "Error: filetype not recognized")))
+                       "Error: filetype not recognized"))
 
   # Assign cutoffs ------------------------------------------
   mincut <- ifelse(missing(mincut) == TRUE, min(cal$CO2_r), mincut)
@@ -54,8 +53,7 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
   # Read leaf data file -------------------------------------
   ifelse(filetype == 6800, id <- read_6800(datafile, skiplines),
          ifelse(filetype == 'csv', id <- read.csv(datafile),
-                ifelse(filetype == 'dataframe', id <- datafile,
-                       "Error: filetype not recognized")))
+                       "Error: filetype not recognized"))
 
   # Restrict data to calibration range ----------------------
   id <- id[id$CO2_r > mincal, ]
@@ -71,20 +69,19 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
                   (id$gtc + id$E / 2))
 
   # Plot corrected leaf data --------------------------------
-  ifelse(filetype == "dataframe",
-         plot(Acor ~ Cicor, data = id, main = dataname),
-         plot(Acor ~ Cicor, data = id, main = datafile))
+  #ifelse(filetype == "dataframe",
+  #       plot(Acor ~ Cicor, data = id, main = dataname),
+  #       plot(Acor ~ Cicor, data = id, main = datafile))
 
   # Add ID label to file ------------------------------------
-  ifelse(filetype == "dataframe",
-         id$ID <- rep(dataname, length(id$obs)),
-         id$ID <- rep(datafile, length(id$obs)))
+
+
+  #id$ID <- rep(datafile, length(id$obs))
 
   # Remove columns filled with NA ---------------------------
   id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
 
   # Write data output to .csv -------------------------------
-  ifelse(filetype == "dataframe",
-         write.csv(id1, paste(dataname, ".csv", sep = "")),
-         write.csv(id1, paste(datafile, ".csv", sep = "")))
+
+         write.csv(id1, paste(datafile, ".csv", sep = ""))
 }

@@ -29,8 +29,7 @@ racircalcheck_advanced <- function(calfile, mincut, maxcut, skiplines, filetype,
   # Load data -------------------------------------------------
   ifelse(filetype == 6800, cal <- read_6800(calfile, skiplines),
          ifelse(filetype == 'csv', cal <- read.csv(calfile),
-                ifelse(filetype == 'dataframe', cal <- calfile,
-                       "Error: filetype not recognized")))
+                       "Error: filetype not recognized"))
   cal$sep_columns <- round(cal$CO2_r, digits = digits)
 
   # Assign cutoffs ------------------------------------------
