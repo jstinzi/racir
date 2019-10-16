@@ -76,7 +76,7 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
   # Add ID label to file ------------------------------------
 
 
-  #id$ID <- rep(datafile, length(id$obs))
+  id$ID <- rep(datafile, length(id$obs))
 
   # Remove columns filled with NA ---------------------------
   id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
