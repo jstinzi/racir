@@ -71,7 +71,7 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype,
   # Plot corrected leaf data --------------------------------
   #ifelse(filetype == "dataframe",
   #       plot(Acor ~ Cicor, data = id, main = dataname),
-  #       plot(Acor ~ Cicor, data = id, main = datafile))
+         plot(Acor ~ Cicor, data = id, main = datafile)
 
   # Add ID label to file ------------------------------------
 
