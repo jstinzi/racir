@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/jstinzi/racir.svg?branch=master)](https://travis-ci.com/jstinzi/racir)
 
+[![DOI](https://zenodo.org/badge/149156152.svg)](https://zenodo.org/badge/latestdoi/149156152)
+
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
 (RACiR TM) data obtained using the LI-COR 6800 portable photosynthesis machine
 (LI-COR Biosciences, Lincoln, NB). 
