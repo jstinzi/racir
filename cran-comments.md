@@ -3,7 +3,7 @@ This is a new submission
 
 ## Test environments
 * local Windows 10, R 4.0.0
-* local macOS X install, R 3.6.3
+* local macOS X install, R 4.0.0
 * win-builder (devel and release)
 * ubuntu 16.04 (on travis-ci), R 3.6.2
 
