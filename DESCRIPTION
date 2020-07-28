@@ -28,5 +28,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 Imports: utils,
     stats,
-    dplyr (>= 1.0.0),
     graphics
