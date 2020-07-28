@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/jstinzi/racir.svg?branch=master)](https://travis-ci.com/jstinzi/racir)
 # The racir R package
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
