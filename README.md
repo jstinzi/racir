@@ -1,4 +1,6 @@
-# The racir R package
+# racir
+
+[![Build Status](https://travis-ci.com/jstinzi/racir.svg?branch=master)](https://travis-ci.com/jstinzi/racir)
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
 (RACiR TM) data obtained using the LI-COR 6800 portable photosynthesis machine
