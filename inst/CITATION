@@ -1,6 +1,6 @@
 bibentry(bibtype = "Misc",
          title = "Rapid A/Ci response analysis with {racir}",
          author = "Joseph Stinziano",
-         year = "2018",
-         version = "1.0.0",
+         year = "2020",
+         version = "2.0.0",
          doi = "10.5281/zenodo.1420513")
