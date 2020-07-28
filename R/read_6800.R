@@ -10,26 +10,6 @@
 #'
 #'
 #'
-
-#read_6800 <- function(x) {
-#  #Read in header information
-#  header <- read.delim(file = x, header = TRUE, sep = "\t",
-#                     skip = grep(pattern = "\\[Data\\]",
-#                                 x = readLines(x),
-#                                 value = FALSE) + 1,
-#                     nrows = 1)
-#  #Read in data information
-#  data <- read.delim(file = x, header = FALSE, sep = "\t",
-#                   skip = grep(pattern = "\\[Data\\]",
-#                               x = readLines(x),
-#                               value = FALSE) + 3)
-#  #Add header to data
-#  colnames(data) <- colnames(header)
-#  #Return data
-#  return(data)
-#}
-
-
 read_6800 <- function(x) {
   #Read in header information
   header <- read.delim(file = x, header = TRUE, sep = "\t",
