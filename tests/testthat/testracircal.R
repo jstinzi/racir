@@ -40,5 +40,14 @@ testdata <- racircal(caldata = data[[1]], data = data[[2]],
          mincut = 300, maxcut = 900)
 
 test_that("Outputs", {
-  expect_equal(object = length(testdata), 14)
+  expect_equal(object = length(testdata), length(data[[2]]) + 2)
+  expect_is(object = testdata, class = "data.frame")
+})
+
+testdata <- racircal_advanced(caldata = data[[1]], data = data[[2]],
+                     mincut = 300, maxcut = 900, digits = -3)
+
+test_that("Outputs", {
+  expect_equal(object = length(testdata), length(data[[2]]) + 3)
+  expect_is(object = testdata, class = "data.frame")
 })

@@ -56,7 +56,25 @@ output <- racircalbatch(caldata = cal,
               maxcut = 900)
 
 test_that("Output", {
+  expect_is(object = output, class = "list")
+  expect_is(object = output[[1]], class = "data.frame")
+  expect_is(object = output[[2]], class = "data.frame")
   expect_length(object = output, 2)
-  expect_equal(object = length(output[[1]]), 15)
-  expect_equal(object = length(output[[2]]), 15)
+  expect_equal(object = length(output[[1]]), length(data[[1]]) + 3)
+  expect_equal(object = length(output[[2]]), length(data[[2]]) + 3)
+})
+
+output <- racircalbatch_advanced(caldata = cal,
+                        data = data,
+                        mincut = 300,
+                        maxcut = 900,
+                        digits = -3)
+
+test_that("Output", {
+  expect_is(object = output, class = "list")
+  expect_is(object = output[[1]], class = "data.frame")
+  expect_is(object = output[[2]], class = "data.frame")
+  expect_length(object = output, 2)
+  expect_equal(object = length(output[[1]]), length(data[[1]]) + 4)
+  expect_equal(object = length(output[[2]]), length(data[[2]]) + 4)
 })

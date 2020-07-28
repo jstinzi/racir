@@ -10,10 +10,7 @@ vignette: >
 ---
 
 This vignette explains how to process rapid A/Ci response (RACiR) data with the
-'racir' package in R. It is written to be usable for beginners in R. Please
-note that the functions in the package in its current form will only work with
-Li-Cor 6800 (LI6800) data files (not the spreadsheet .xlsx output). Notes will
-explain how to modify the function code for use with other types of data files.
+'racir' package in R. It is written to be usable for beginners in R.
 
 After installing the package from CRAN with 'install.packages("racir")', load
 the package :
