@@ -2,8 +2,7 @@
 #'
 #' \code{read_6800} Reads Li-Cor 6800 files, which are delimited by spaces and tabs.
 #'
-#' @param filename A character string of the form: "mydata".
-#' @param skiplines A number specifying the number of header lines to skip.
+#' @param x A Li-Cor 6800 data file name of the form: "mydata".
 #'
 #' @return read_6800 imports a Li-Cor 6800 file as a data frame
 #' @importFrom utils read.delim
@@ -11,19 +10,21 @@
 #'
 #'
 #'
-read_6800 <- function(filename, skiplines){
-  skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
-  # Read in file for column names ---------------------------
-  colname <- read.delim(filename, sep = "\t", skip = skiplines,
-                        header = TRUE, fill = TRUE)
 
-  # Read in file --------------------------------------------
-  data <- read.delim(filename, sep = "\t", skip = skiplines+2,
-                     header = FALSE, fill = TRUE)
-
-  # Assign column names -------------------------------------
-  colnames(data) <- colnames(colname)
-
-  # Print data ----------------------------------------------
+read_6800 <- function(x) {
+  #Read in header information
+  header <- read.delim(file = x, header = TRUE, sep = "\t",
+                     skip = grep(pattern = "\\[Data\\]",
+                                 x = readLines(x),
+                                 value = FALSE) + 1,
+                     nrows = 1)
+  #Read in data information
+  data <- read.delim(file = x, header = FALSE, sep = "\t",
+                   skip = grep(pattern = "\\[Data\\]",
+                               x = readLines(x),
+                               value = FALSE) + 3)
+  #Add header to data
+  colnames(data) <- colnames(header)
+  #Return data
   return(data)
 }

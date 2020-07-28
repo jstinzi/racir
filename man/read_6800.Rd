@@ -4,12 +4,10 @@
 \alias{read_6800}
 \title{Reads files from the Li-Cor 6800}
 \usage{
-read_6800(filename, skiplines)
+read_6800(x)
 }
 \arguments{
-\item{filename}{A character string of the form: "mydata".}
-
-\item{skiplines}{A number specifying the number of header lines to skip.}
+\item{x}{A Li-Cor 6800 data file name of the form: "mydata".}
 }
 \value{
 read_6800 imports a Li-Cor 6800 file as a data frame

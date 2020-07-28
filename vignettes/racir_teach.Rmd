@@ -35,13 +35,8 @@ The following example is to read in a data file from the LI6800. Note that
 this is not restricted to RACiR data, but can be used for reading LI6800 files
 in general.
 
-The argument skiplines specifies the number of lines to skip in the tab
-delimited file to reach the variable names (e.g. E, A, Ci, etc.). It defaults
-to 53, but may vary depending on your machine and software version.
-
 ```{r}
-data <- read_6800(system.file("extdata", "cal", package = "racir"), 
-                  skiplines = 53)
+data <- read_6800(system.file("extdata", "cal", package = "racir"))
 ```
 
 ##Checking Calibration Data
@@ -54,8 +49,10 @@ visually determine where the unusable shoulder portions are of the RACiR.
 appropriate. 'Calibration Fits' shows you how each polynomial fits the data.
 
 ```{r fig.height = 4, fig.width = 6}
-racircalcheck(calfile = system.file("extdata", "cal", package = "racir"),
-              skiplines = 53)
+#Read in the file
+data <- read_6800(system.file("extdata", "cal", package = "racir"))
+#Run calibration check
+racircalcheck(data = data)
 ```
 
 In the above example, there are shoulders in the A versus CO2_r response.
@@ -64,8 +61,17 @@ and end of RACiRs. We can cut them out using the 'mincut' and 'maxcut'
 arguments.
 
 ```{r fig.height = 4, fig.width = 6}
-racircalcheck(calfile = system.file("extdata", "cal", package = "racir"),
-              mincut = 350, maxcut = 780, skiplines = 53)
+#Read in the file
+data <- read_6800(system.file("extdata", "cal", package = "racir"))
+#Run calibration check
+racircalcheck(data = data,
+              mincut = 350,
+              maxcut = 780)
+#If using the interval option, use the following function. See below
+#for more detailed description
+racircalcheck_advanced(data = data,
+              mincut = 350,
+              maxcut = 780)
 ```
 
 From the 'Check cutoffs' and 'Calibration Fits' graphs, we can see that the
@@ -79,10 +85,25 @@ to determine appropriate cutoffs. The 'racircal' function is most appropriate
 when you have one calibration file per leaf RACiR.
 
 ```{r fig.height = 4, fig.width = 6}
-racircal(calfile = system.file("extdata", "cal", package = "racir"),
-         mincut = 350, maxcut = 780,
-         datafile = system.file("extdata", "poplar_2", package = "racir"),
-         skiplines = 53)
+data <- read_6800(system.file("extdata", "poplar_2", package = "racir"))
+caldata <- read_6800(system.file("extdata", "cal", package = "racir"))
+
+data_corrected <- racircal(data = data, caldata = caldata,
+                           mincut = 350, maxcut = 780)
+```
+
+Now in some cases, an interval correction may be more appropriate, depending
+on how the two infrared gas analyzers are calibrated relative to one another.
+The following "advanced" approach splits the reference CO2 into intervals,
+then fits a calibration curve for each interval to correct the data. The default
+interval is 100 ppm
+```{r fig.height = 4, fig.width = 6}
+data <- read_6800(system.file("extdata", "poplar_2", package = "racir"))
+caldata <- read_6800(system.file("extdata", "cal", package = "racir"))
+
+data_corrected <- racircal_advanced(data = data, caldata = caldata,
+                                    mincut = 350, maxcut = 780,
+                                    digits = -2)
 ```
 
 If there is more than one leaf RACiR per calibration file, then a batch
@@ -90,21 +111,24 @@ analysis can be performed using the 'racircalbatch' function.
 
 ```{r fig.height = 4, fig.width = 6}
 #Create a list of files
-myfiles <- c(system.file("extdata", "poplar_1", package = "racir"),
-             system.file("extdata", "poplar_2", package = "racir"))
+files <- c(system.file("extdata", "poplar_1", package = "racir"),
+          system.file("extdata", "poplar_2", package = "racir"))
+data <- vector("list", length(files))
+for(i in seq_along(files)){
+  data[[i]] <- read_6800(files[i])
+  names(data)[i] <- files[i]
+}
 
-#If all files in a folder pertain to one calibration file, you can use:
-#myfiles = list.files()
+caldata <- read_6800(system.file("extdata", "cal", package = "racir"))
 
-racircalbatch(calfile = system.file("extdata", "cal", package = "racir"),
-         mincut = 350, maxcut = 780,
-         datafiles = myfiles, skiplines = 53)
-```
+#Batch calibration with normal algorithm
+output <- racircalbatch(caldata = caldata, data = data,
+         mincut = 350, maxcut = 780, title = files)
 
-##Compiling RACiR Files
-Once the RACiR files have been processed, the files can be compiled into a .csv
-file using the following code:
+#Batch calibration with advanced algorithm
+output <- racircalbatch_advanced(caldata = caldata, data = data,
+         mincut = 350, maxcut = 780, title = files)
 
-```{r eval = FALSE}
-compile_racir(outputfile = "mydata.csv")
+#To compile outputs from list to data frame:
+output <- do.call("rbind", output)
 ```

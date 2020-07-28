@@ -4,27 +4,60 @@
 \alias{racircalbatch_advanced}
 \title{Corrects a batch of rapid A/Ci response (RACiR) data}
 \usage{
-racircalbatch_advanced(calfile, mincut, maxcut, datafiles, skiplines,
-  filetype, digits)
+racircalbatch_advanced(
+  caldata,
+  data,
+  mincut,
+  maxcut,
+  digits,
+  title,
+  varnames = list(A = "A", Ca = "Ca", CO2_r = "CO2_r", E = "E", gtc = "gtc")
+)
 }
 \arguments{
-\item{calfile}{Calibration (empty chamber) rapid A/Ci response file}
+\item{caldata}{Data frame with the calibration data}
 
-\item{mincut}{Minimum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the initial chamber mixing. Default value is set to the minimum COR_r value.}
+\item{data}{List of data frames with the RACiR response data}
 
-\item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the end of the response. Not needed in all cases. Default value is set to the maximum COR_r value.}
+\item{mincut}{Minimum cutoff value for reference CO2 (CO2_r). Used to cut
+out the data from the initial chamber mixing. Default value is set to the
+minimum COR_r value.}
 
-\item{datafiles}{Vector of data files to be corrected}
+\item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut
+out the data from the end of the response. Not needed in all cases. Default
+value is set to the maximum COR_r value.}
 
-\item{skiplines}{A number specifying the number of header lines to skip.}
+\item{digits}{Specifies rounding for groups. Defaults to -2 (100s). Effectively
+uses 100 ppm intervals (e.g. data matching >50 ppm to 150 ppm would be assigned
+to an interval centered around 100 ppm for reference CO2).}
 
-\item{filetype}{Specifies the filetype for the data (6800, csv, or dataframe).}
+\item{title}{Vector for titles of output graph - useful for batch RACiR
+corrections. Length must be equal to data list length}
 
-\item{digits}{pecifies rounding for groups. Defaults to -2 (100s).}
+\item{varnames}{Variable names - this allows for the use of this code with
+other machines and setups where variable names may differ.}
 }
 \value{
-racircalbatch prints .csv files with corrected RACiR data
+racircalbatch_advanced uses racircal_advanced on many files
 }
 \description{
-\code{racircal} Corrects your RACiR data files based on a calibration file. Produces diagnostic graphs of A vs. Ci for quality control. Output includes a data frame in the global environment "corrected_data" and a csv file of the form "datafile.csv".
+\code{racircalbatch_advanced} Corrects your RACiR data files based on a
+calibration file. Produces diagnostic graphs of A vs. Ci for quality
+control. Output includes a list of data frames with corrected data.
+}
+\examples{
+\donttest{
+#Create a list of files
+files <- c(system.file("extdata", "poplar_1", package = "racir"),
+          system.file("extdata", "poplar_2", package = "racir"))
+data <- vector("list", length(files))
+for(i in seq_along(files)){
+ data[[i]] <- read_6800(files[i])
+ names(data)[i] <- files[i]
+}
+
+caldata <- read_6800(system.file("extdata", "cal", package = "racir"))
+output <- racircalbatch_advanced(caldata = caldata, data = data,
+                                mincut = 300, maxcut = 780, title = files)
+}
 }

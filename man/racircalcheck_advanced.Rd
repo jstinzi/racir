@@ -2,27 +2,50 @@
 % Please edit documentation in R/racircalcheck_advanced.R
 \name{racircalcheck_advanced}
 \alias{racircalcheck_advanced}
-\title{Allows visual checking of rapid A/Ci response (RACiR) calibration data using empty chamber data.}
+\title{Allows visual checking of rapid A/Ci response (RACiR) calibration data using
+empty chamber data.}
 \usage{
-racircalcheck_advanced(calfile, mincut, maxcut, skiplines, filetype,
-  digits)
+racircalcheck_advanced(
+  data,
+  mincut,
+  maxcut,
+  digits,
+  varnames = list(A = "A", Ca = "Ca", CO2_r = "CO2_r", E = "E", gtc = "gtc")
+)
 }
 \arguments{
-\item{calfile}{Calibration (empty chamber) rapid A/Ci response file}
+\item{data}{Data frame with the calibration (empty chamber) rapid A/Ci response}
 
-\item{mincut}{Minimum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the initial chamber mixing. Default value is set to the minimum COR_r value.}
+\item{mincut}{Minimum cutoff value for reference CO2 (CO2_r). Used to cut
+out the data from the initial chamber mixing. Default value is set to the
+minimum COR_r value.}
 
-\item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the end of the response. Not needed in all cases. Default value is set to the maximum COR_r value.}
+\item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut
+out the data from the end of the response. Not needed in all cases. Default
+value is set to the maximum COR_r value.}
 
-\item{skiplines}{A number specifying the number of header lines to skip.}
+\item{digits}{Specifies rounding for groups. Defaults to -2 (100s). Effectively
+uses 100 ppm intervals (e.g. data matching >50 ppm to 150 ppm would be assigned
+to an interval centered around 100 ppm for reference CO2).}
 
-\item{filetype}{Specifies input datatype. Defaults to 6800.}
-
-\item{digits}{Specifies rounding for groups. Defaults to -2 (100s).}
+\item{varnames}{Variable names - this allows for the use of this code with
+other machines and setups where variable names may differ.}
 }
 \value{
-racircal returns a data frame with corrected RACiR data
+racircalcheck_advanced returns a data frame with corrected RACiR data
 }
 \description{
-\code{racircalcheck_advanced} Used to check range of calibration file. Produces diagnostic graphs of A vs. Ci for quality control. Output includes a data frame in the global environment "corrected_data" and a csv file of the form "datafile.csv".
+\code{racircalcheck_advanced} Used to check range of calibration file.
+Produces diagnostic graphs of A vs. Ci for quality control.
+}
+\examples{
+\donttest{
+#Read in data
+data <- read_6800(system.file("extdata", "poplar_2", package = "racir"))
+caldata <- read_6800(system.file("extdata", "cal", package = "racir"))
+#Correct data
+racircalcheck_advanced(data = data, mincut = 350, maxcut = 780)
+}
+
+
 }
