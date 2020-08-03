@@ -1,7 +1,8 @@
 # racir
 
 [![Build Status](https://travis-ci.com/jstinzi/racir.svg?branch=master)](https://travis-ci.com/jstinzi/racir)
-
+[![](https://www.r-pkg.org/badges/version/racir?color=blue)](https://cran.r-project.org/package=racir)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/racir?color=cyan)](https://cran.r-project.org/package=racir)
 [![DOI](https://zenodo.org/badge/149156152.svg)](https://zenodo.org/badge/latestdoi/149156152)
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
