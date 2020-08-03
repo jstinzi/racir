@@ -28,6 +28,10 @@ varnames variable. Please contact Dr. Joseph R. Stinziano for more information.
 
 ## Installation
 
+To install the stable-release package from CRAN, run:
+
+install.packages("racir")
+
 To install the development version, use the following commands. Windows users
 must have Rtools installed.
 
